@@ -10,7 +10,7 @@ class Controller:
             return jsonify(tasks),200
         except TaskNotFound:
             return jsonify({'Erro':'Tarefa não cadastrada!'}),404
-        
+    
     @staticmethod
     def create_task(data):
         data = request.get_json()
