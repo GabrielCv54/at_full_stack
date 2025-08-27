@@ -4,7 +4,7 @@
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Tarefas</title>
-    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
     <script src='main.js'></script>
 </head>
@@ -18,13 +18,18 @@
         </li>
         <li>
             Descrição : {{task.description}}
-
+            <a href="../templates/create_task.html">Atualizar</a>
+            <a href="">Excluir</a>
         </li>
         <li>
             status: {{task.status}}
+            <a href="">Atualizar</a>
+            <a href="">Excluir</a>
         </li>
         <li>
             Usuário: {{task.user_id}}
+            <a href="">Atualizar</a>
+            <a href="">Excluir</a>
         </li>
     </ul>
 </body>

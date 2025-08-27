@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db = SQLAlchemy()
+from App import db
 
 class Task(db.Model):
    __tablename__ ='tasks'
@@ -10,7 +8,7 @@ class Task(db.Model):
    description = db.Column(db.String(150))
    status = db.Column(db.String,default='Pendente',nullable=False)
    user_id = db.Column(db.ForeignKey('users.id'))
-
+'''
    def __init__(self,id,title,description,status,user_id):
       self.id = id
       self.title = title
@@ -59,4 +57,4 @@ def del_task(id):
    if not deleted:
       raise TaskNotFound
    db.session.delete(deleted)
-   db.session.commit()
+   db.session.commit()'''

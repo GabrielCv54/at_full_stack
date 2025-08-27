@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Criação de novas tarefas</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js' defer></script>
+</head>
+<body>
+     <form method="post" action="../templates/index.html">
+        <label for="title">Título:</label>
+        <input type="text" id="task" name="task"><br>
+        <label for="description">Descrição: </label>
+        <input type="text" id="description" name="description"><br>
+        <label for="status">Status: </label>
+        <input type="text" name="status" id="status"><br>
+        <label for="user_id">Usuário:</label>
+        <select name="users" id="users">
+          {% for user in users %}
+          {% endfor %}
+        </select><br>
+        <button type="submit">Criar</button>
+     </form>
+</body>
+</html>

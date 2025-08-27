@@ -1,41 +1,25 @@
 from App import app
-from flask import request,jsonify
+from flask import request,render_template,redirect,url_for
+from models.user import User,db
 
-users = {}
-id = 1
-@app.route("/users", methods=["POST"])
-def criar_usuario(users):
-    global id
-    dict = request.json
-    user = {"id": id, "nome": dict["nome"], "email": dict["email"]}
-    users[id] = user
-    id += 1
-    return jsonify(user),201
+'''users = {}
+id = 1'''
 
-@app.route("/users", methods =["GET"])
-def listar_usuarios():
-    return jsonify (list(users.values())), 200
+class UserController:
+    @staticmethod
+    def index():
+        users = User.query.all()
+        return render_template('index.html',users=users)
+    
+    @staticmethod
+    def contact():
+        if request.method == 'POST':
+            name = request.form['nome']
+            email = request.form['email']
+            
+            user = User(name=name,email=email)
+            db.session.add(user)
+            db.session.commit()
 
-@app.route("/users/<int:user_id>", methods=["GET"])
-def get_user(user_id):
-    user = users.get(user_id)
-    if user:
-        return jsonify(user), 200
-    return jsonify({"error": "Usuário não encontrado"}), 404
-
-@app.route("/users/<int:user_id>", methods=["PUT"])
-def atulizar_usuario(user_id):
-    data = request.json
-    user = users.get(user_id)
-    if not user:
-        return jsonify({"error": "Usuário não encontrado"}), 404
-    user["nome"] = data.get("nome", user["nome"])
-    user["email"] = data.get("email", user["email"])
-    return jsonify(user), 200
-
-@app.route("/users/<int:user_id>", methods=["DELETE"])
-def deletar_usuario(user_id):
-    if user_id in users:
-        del users[user_id]
-        return jsonify({"message": "Usuário excluído com sucesso"}), 200
-    return jsonify({"error": "Usuário não encontrado"}), 404
+            return redirect(url_for('index'))
+        return render_template('contact.html')

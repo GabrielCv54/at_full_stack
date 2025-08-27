@@ -1,6 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-
-db= SQLAlchemy()
+from App import db
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -9,7 +7,7 @@ class User(db.Model):
     nome = db.Column(db.String,nullable=False)
     email = db.Column(db.String)
 
-    def __init__(self,id,nome,email):
+'''    def __init__(self,id,nome,email):
         self.id = id
         self.nome = nome
         self.email = email
@@ -47,4 +45,4 @@ def update_user(id,dados):
 def delete_user(id):
     user = User.query.get(id)
     db.session.delete(user)
-    db.session.commit()
+    db.session.commit()'''
