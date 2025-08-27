@@ -10,26 +10,24 @@
 </head>
 <body>
     <h1>Minhas Tarefas</h1>
-    <a href="create_task.html">Criar nova tarefa</a>
-    <ul>
-          {% for task in tasks %}
-        <li>
+    <a href="{{url_for('create_task')}}">Criar nova tarefa</a>
+    <ul>{% for task in tasks %}<li>
            Id: {{task.id}}
         </li>
         <li>
             Descrição : {{task.description}}
-            <a href="../templates/create_task.html">Atualizar</a>
-            <a href="">Excluir</a>
+            <a href="{{url_for('update_task_status')}}">Concluir</a>
+            <a href="{{url_for('delete_task')}}">Excluir</a>
         </li>
         <li>
             status: {{task.status}}
-            <a href="">Atualizar</a>
-            <a href="">Excluir</a>
+            <a href="{{url_for('update_task_status')}}">Concluir</a>
+            <a href="{{url_for('delete_task')}}">Excluir</a>
         </li>
         <li>
             Usuário: {{task.user_id}}
-            <a href="">Atualizar</a>
-            <a href="">Excluir</a>
+            <a href="{{url_for('update_task_status')}}">Concluir</a>
+            <a href="{{url_for('delete_status')}}">Excluir</a>
         </li>
     </ul>
 </body>

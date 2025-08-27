@@ -1,12 +1,7 @@
-from flask import Flask
-from .controllers.task_controller import TaskController
-from .controllers.user_controller import UserController
-from .config import Config
-from models.task import db
-from flask_sqlalchemy import SQLAlchemy
+from controllers.task_controller import TaskController
+from controllers.user_controller import UserController
+from config import Config,app,db
 
-app = Flask(__name__)
-db= SQLAlchemy()
 
 app.config.from_object(Config)
 
@@ -15,13 +10,13 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 
-app.add_url_rule('/tasks',TaskController.list_tasks,methods=['GET'])
-app.add_url_rule('/tasks/new',TaskController.create_task,methods=['GET','POST'])
-app.add_url_rule('/tasks/update/<int:id>',TaskController.update_task_status,methods=['POST'])
-app.add_url_rule('/tasks/delete/<int:id>',TaskController.delete_task,methods=['DELETE'])
+app.add_url_rule('/tasks',endpoint='list_tasks',view_func=TaskController.list_tasks,methods=['GET'])
+app.add_url_rule('/tasks/new',endpoint='create_task',view_func=TaskController.create_task,methods=['GET','POST'])
+app.add_url_rule('/tasks/update/<int:id>',endpoint='update_task',view_func=TaskController.update_task_status,methods=['POST'])
+app.add_url_rule('/tasks/delete/<int:id>',endpoint='delete_task',view_func=TaskController.delete_task,methods=['GET','POST'])
 
-app.add_url_rule('/','index',UserController.index,methods=['GET'])
-app.add_url_rule('/contact','contact',UserController.contact,methods=['GET','POST'])
+app.add_url_rule('/',endpoint='index',view_func=UserController.index,methods=['GET'])
+app.add_url_rule('/contact',endpoint='contact',view_func=UserController.contact,methods=['GET','POST'])
 
 if __name__ == "__main__":
     app.run(debug=True)

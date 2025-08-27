@@ -1,6 +1,6 @@
-from App import app
 from flask import request,render_template,redirect,url_for
-from models.user import User,db
+from models.user import User
+from config import db
 
 '''users = {}
 id = 1'''

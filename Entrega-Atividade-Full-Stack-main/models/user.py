@@ -1,4 +1,4 @@
-from App import db
+from config import db
 
 class User(db.Model):
     __tablename__ = 'users'
@@ -7,11 +7,11 @@ class User(db.Model):
     nome = db.Column(db.String,nullable=False)
     email = db.Column(db.String)
 
-'''    def __init__(self,id,nome,email):
+    def __init__(self,id,nome,email):
         self.id = id
         self.nome = nome
         self.email = email
-
+'''
     def dici(self):
         return {'id':self.id,'nome':self.nome,'email':self.email}
     
