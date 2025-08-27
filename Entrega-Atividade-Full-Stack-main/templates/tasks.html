@@ -14,10 +14,10 @@
 
     <ul>
         {% for task in tasks %}
-        <li>{{task.id}}</li>
-        <li>{{task.description }}</li>
-        <li>{{task.status}}</li>
-        <li>{{task.user_id}} </li>
+        <li>id: {{task.id}}</li>
+        <li>descrição: {{task.description }}</li>
+        <li>status: {{task.status}}</li>
+        <li>usuário: {{task.user_id}} </li>
          <a href="{{ url_for('update_task_status',id=task.id) }}">Concluir</a>
         <a href="{{ url_for('delete_task',id=task.id) }}">Excluir</a><br><br>
          {% endfor %}
