@@ -19,22 +19,23 @@ class TaskController:
               db.session.add(task)
               db.session.commit()
 
-         
+              
            return render_template('tasks.html')
     
     @staticmethod
-    def update_task_status():
-            if request.method == 'POST':
-                  request.form['status'] = 'Concluído'
+    def update_task_status(id):
+            task = Task.query.get(id)
+            if task:
+                  task.status = 'concluído'                  
                   db.session.commit()
 
-            return render_template('create_task.html')
+            return redirect(url_for('list_tasks'))
            
     @staticmethod
     def delete_task(id):
             task = Task.query.get(id)
             db.session.delete(task)
             db.session.commit()
-            return render_template('tasks.html') 
+            return redirect(url_for('list_tasks') )
      
           
