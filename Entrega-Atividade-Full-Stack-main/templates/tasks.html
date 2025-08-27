@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Tarefas</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel='stylesheet' type='text/css' media='screen' href='main.css'>
+    <script src='main.js'></script>
+</head>
+<body>
+    <h1>Minhas Tarefas</h1>
+    <ul>{% for task in tasks %}
+        <li>
+           Id: {{task.id}}
+        </li>
+        <li>
+            Descrição : {{task.description}}
+        </li>
+        <li>
+            status: {{task.status}}
+        </li>
+        <li>
+            Usuário: {{task.user_id}}
+         
+        </li>
+         <a href="{{ url_for('create_task') }}">Criar nova tarefa</a><br>
+         <a href="{{ url_for('update_task_status',id=task.id) }}">Concluir</a><br>
+        <a href="{{ url_for('delete_task') }}">Excluir</a>
+    </ul>
+</body>
+</html>
