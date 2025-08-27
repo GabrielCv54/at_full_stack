@@ -3,7 +3,7 @@ from config import db
 class User(db.Model):
     __tablename__ = 'users'
     
-    id = db.Column(db.Integer,primary_key=True,nullable=False)
+    id = db.Column(db.Integer,primary_key=True,nullable=False,autoincrement=True)
     nome = db.Column(db.String,nullable=False)
     email = db.Column(db.String)
 
