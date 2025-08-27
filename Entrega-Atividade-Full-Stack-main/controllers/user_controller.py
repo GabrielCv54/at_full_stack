@@ -1,4 +1,4 @@
-from flask import request,render_template,redirect,url_for
+from flask import request,render_template,redirect,url_for,make_response
 from models.user import User
 from config import db
 
@@ -14,10 +14,11 @@ class UserController:
     @staticmethod
     def contact():
         if request.method == 'POST':
-            name = request.form['nome']
+            id = request.form['id']
+            nome = request.form['nome']
             email = request.form['email']
             
-            user = User(name=name,email=email)
+            user = User(id=id,nome=nome,email=email)
             db.session.add(user)
             db.session.commit()
 
