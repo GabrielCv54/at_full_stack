@@ -10,23 +10,18 @@
 </head>
 <body>
     <h1>Minhas Tarefas</h1>
-    <ul>{% for task in tasks %}
-        <li>
-           Id: {{task.id}}
-        </li>
-        <li>
-            Descrição : {{task.description}}
-        </li>
-        <li>
-            status: {{task.status}}
-        </li>
-        <li>
-            Usuário: {{task.user_id}}
-         
-        </li>
-         <a href="{{ url_for('create_task') }}">Criar nova tarefa</a><br>
-         <a href="{{ url_for('update_task_status',id=task.id) }}">Concluir</a><br>
-        <a href="{{ url_for('delete_task') }}">Excluir</a>
+    <a href="{{ url_for('create_task') }}">Criar nova tarefa</a><br>
+
+    <ul>
+        {% for task in tasks %}
+        <li>{{task.id}}</li>
+        <li>{{task.description }}</li>
+        <li>{{task.status}}</li>
+        <li>{{task.user_id}} </li>
+         <a href="{{ url_for('update_task_status',id=task.id) }}">Concluir</a>
+        <a href="{{ url_for('delete_task',id=task.id) }}">Excluir</a><br><br>
+         {% endfor %}
     </ul>
+   
 </body>
 </html>

@@ -12,10 +12,12 @@
     <h1>Contatos</h1>
 
     <form method="post" action="{{url_for('contact')}}">
-        <label for="name">Nome:</label>
-        <input type="text" name="name" id="name" required><br>
-        <label for="email" name="email" id="email">Email</label>
-        <input type="email" name="email " id="email"><br>
+        <label for="id">Id:</label>
+        <input type="number" name="id" id="id"><br>
+        <label for="nome">Nome:</label>
+        <input type="text" name="nome" id="nome" required><br>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email"><br>
         <button type="submit">Cadastrar usuário</button>
     </form>
 </body>
