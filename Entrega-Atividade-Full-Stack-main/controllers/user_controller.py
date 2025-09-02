@@ -1,11 +1,35 @@
-from flask import request,render_template,redirect,url_for,make_response
-from models.user import User
+from flask import request,Blueprint,jsonify
+from models.user import UserNotFound,create_new_user,delete_user,get_all_users,update_user
 from config import db
 
-'''users = {}
-id = 1'''
+user_blueprint = Blueprint(__name__)
 
-class UserController:
+@user_blueprint.route('/users')
+def show_all():
+    return get_all_users(),200
+
+def create_new():
+    data = request.get_json()
+    create_new_user(data)
+    return jsonify({'Sucesso':'Usuário criado com sucesso!'}),201
+
+def updating(id):
+    try:
+        user = request.json
+        update_user(id,user)
+        return jsonify({'Sucesso':'Usuário atualizado!!!'}),201
+    except UserNotFound:
+        return jsonify({'Erro':'Usuário não encontrado!!'}),404
+    
+def delete(id):
+    try:
+      delete_user(id)
+      return jsonify({'Sucesso':'Usuário deletado!!'})
+    except UserNotFound:
+        return jsonify({'Erro':'Usuário não encontrado'}),404
+
+
+'''class UserController:
     @staticmethod
     def index():
         users = User.query.all()
@@ -23,4 +47,4 @@ class UserController:
             db.session.commit()
 
             return redirect(url_for('index'))
-        return render_template('contact.html')
+        return render_template('contact.html')'''

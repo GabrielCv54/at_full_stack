@@ -11,7 +11,7 @@ class User(db.Model):
         self.id = id
         self.nome = nome
         self.email = email
-'''
+
     def dici(self):
         return {'id':self.id,'nome':self.nome,'email':self.email}
     
@@ -21,12 +21,6 @@ class UserNotFound(Exception):
 def get_all_users():
     users = User.query.all()
     return [us.nome for us in users]
-
-def get_one_user(id):
-    user = User.query.get(id)
-    if not user:
-        raise UserNotFound
-    return user.dici
 
 def create_new_user(dados):
     user = User(id=dados['id'],nome=dados['nome'],email=dados['email'])
@@ -45,4 +39,4 @@ def update_user(id,dados):
 def delete_user(id):
     user = User.query.get(id)
     db.session.delete(user)
-    db.session.commit()'''
+    db.session.commit()

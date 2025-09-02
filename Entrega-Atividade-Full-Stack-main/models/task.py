@@ -3,7 +3,7 @@ from config import db
 class Task(db.Model):
    __tablename__ ='tasks'
 
-   id = db.Column(db.Integer,primary_key=True,nullable=False)
+   id = db.Column(db.Integer,primary_key=True,nullable=False,auto_increment=True)
    title = db.Column(db.String,nullable=False)
    description = db.Column(db.String(150))
    status = db.Column(db.String,default='Pendente',nullable=False)
@@ -15,7 +15,7 @@ class Task(db.Model):
       self.description = description
       self.status = status
       self.user_id = user_id
-'''
+
    def dictionary(self):
       return {
          'id':self.id,
@@ -30,11 +30,7 @@ class TaskNotFound(Exception):
 
 def get_all_tasks():
    tasks = Task.query.all()
-   return tasks.dictionary
-
-def get_task(id):
-   task = Task.query.get(id)
-   return [t.dictionary for t in task ]
+   return [task.dictionary() for task in tasks]
    
 def create_one_task(data):
    data = Task(id=data['id'],title=data['title'],description=data['description'],status=data['status'],user_id=data['user_id'])
@@ -57,4 +53,4 @@ def del_task(id):
    if not deleted:
       raise TaskNotFound
    db.session.delete(deleted)
-   db.session.commit()'''
+   db.session.commit()
