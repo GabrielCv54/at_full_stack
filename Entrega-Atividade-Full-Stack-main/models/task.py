@@ -3,7 +3,7 @@ from config import db
 class Task(db.Model):
    __tablename__ ='tasks'
 
-   id = db.Column(db.Integer,primary_key=True,nullable=False,auto_increment=True)
+   id = db.Column(db.Integer,primary_key=True,nullable=False)
    title = db.Column(db.String,nullable=False)
    description = db.Column(db.String(150))
    status = db.Column(db.String,default='Pendente',nullable=False)

@@ -2,17 +2,19 @@ from flask import request,Blueprint,jsonify
 from models.user import UserNotFound,create_new_user,delete_user,get_all_users,update_user
 from config import db
 
-user_blueprint = Blueprint(__name__)
+user_blueprint = Blueprint('users_routes',__name__)
 
-@user_blueprint.route('/users')
+@user_blueprint.route('/users',methods=['GET'])
 def show_all():
     return get_all_users(),200
 
+@user_blueprint.route('/users',methods=['POST'])
 def create_new():
     data = request.get_json()
     create_new_user(data)
     return jsonify({'Sucesso':'Usuário criado com sucesso!'}),201
 
+@user_blueprint.route('/users/<int:id>',methods=['PUT'])
 def updating(id):
     try:
         user = request.json
@@ -20,7 +22,9 @@ def updating(id):
         return jsonify({'Sucesso':'Usuário atualizado!!!'}),201
     except UserNotFound:
         return jsonify({'Erro':'Usuário não encontrado!!'}),404
-    
+
+
+@user_blueprint.route('/users/<int:id>',methods=['DELETE'])   
 def delete(id):
     try:
       delete_user(id)
