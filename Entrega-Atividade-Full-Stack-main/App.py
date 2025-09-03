@@ -1,9 +1,18 @@
 from controllers.task_controller import task_blueprint
 from controllers.user_controller import user_blueprint
 from config import Config,app,db
+from flasgger import Swagger
 
 
 app.config.from_object(Config)
+swagger = Swagger(app,template={
+            "info":{
+             "title":'API Tarefas',
+            "description":"Api de gerencimento de tarefas",
+            "version":'1.0'
+                }
+                 })
+
 
 db.init_app(app)
 
@@ -14,6 +23,7 @@ app.register_blueprint(user_blueprint)
 
 with app.app_context():
     db.create_all()
+    
 '''app.add_url_rule('/tasks',endpoint='list_tasks',view_func=TaskController.list_tasks,methods=['GET'])
 app.add_url_rule('/tasks/new',endpoint='create_task',view_func=TaskController.create_task,methods=['GET','POST'])
 app.add_url_rule('/tasks/update/<int:id>',endpoint='update_task_status',view_func=TaskController.update_task_status,methods=['GET','POST'])
