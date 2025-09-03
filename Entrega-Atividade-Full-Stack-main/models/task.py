@@ -41,7 +41,6 @@ def update_task(id,data):
    task_updated = Task.query.get(id)
    if not task_updated:
       raise TaskNotFound
-   task_updated.id = data['id']
    task_updated.title = data['title']
    task_updated.description = data['description']
    task_updated.status = data['status']
