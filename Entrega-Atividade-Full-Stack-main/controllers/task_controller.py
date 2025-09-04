@@ -1,6 +1,5 @@
 from flask import jsonify,request,Blueprint
 from models.task import create_one_task,del_task,get_all_tasks,update_task,TaskNotFound
-from config import db
 
 task_blueprint = Blueprint('tasks_routes',__name__)
 
@@ -10,7 +9,7 @@ def get_tasks():
     Listar todas as tarefas
     ---
     tags:
-        -tasks
+        - Tarefas
     description: Retorna todas as tarefas.
     responses:
         200 :
@@ -27,11 +26,48 @@ def create():
     Criar uma nova tarefa
     ---
     tags:
-        -tasks
-    description: Cria uma nova tarefa
+        - Tarefas
+    parameters:
+        - in: body
+          name: body
+          schema:
+             id: Task
+             required:
+             - title
+             - user_id
+             properties:
+              id:
+                type: integer
+                description: Id da tarefa
+              title:
+                type : string
+                description : título da tarefa
+              description:
+                type: string
+                description : Descrição sobre a tarefa
+              status:
+                type : string
+                description : status da tarefa
+              user_id:
+                type: integer
+                description : Usuário responsável
     responses:
         201 :
-            description: O objeto json original ,com a nova tarefa já inserida.
+            description: Tarefa criada!!.
+            schema:
+            id: TaskResponse
+            properties:
+                id:
+                  type: integer
+                title:
+                  type: string
+                description:
+                    type: string
+                status:
+                    type: string
+                user_id:
+                   type: integer
+
     """
     #...
 
@@ -46,13 +82,36 @@ def update(id):
    Atualizar tarefa
     ---
     tags:
-        -tasks
-    description: Atualiza uma tarefa, pegando o id
+        - Tarefas
+    parameters:
+      - in: path
+        name: id
+        type: integer
+        required: true
+        description: id da tarefa.
+      - in: body
+        name: body
+        schema:
+         id: TaskUpdate
+         properties:
+           title:
+             type: string
+             description: título da tarefa
+           status:
+             type: string
+             description: status da tarefa 
+           description:
+             type: string
+             description: descrição da tarefa 
+           user_id:
+             type: integer
+             description : id do usuário responsável
+
     responses:
         201:
-            description: Um json de sucesso.
+            description: Tarefa Atualizada com sucesso!!
         404:
-            description: um json de erro, tarefa com id não encontrado.
+            description:  tarefa com id não encontrado.
     """
     #...
 
@@ -70,13 +129,19 @@ def delete(id):
     Deletar uma tarefa
     ---
     tags:
-        -tasks
-    description: Deleta uma tarefa pelo id
+        - Tarefas
+    parameters:
+      - in: path
+        name: id 
+        type: integer
+        required: true
+        description: id da tarefa a ser excluída
+        
     responses:
-        200 :
-            description: Um json de sucesso.
+        204:
+            description: Tarefa excluída com sucesso!!.
         404:
-            description: Um json de tarefa com id não encontrado.
+            description: tarefa com id não encontrado.
     """
     #...
     try:
@@ -85,43 +150,3 @@ def delete(id):
     except TaskNotFound:
         return jsonify({'Erro':'Tarefa não encontrada'}),404
 
-
-'''class TaskController:
-    @staticmethod
-    def list_tasks():
-            tasks = Task.query.all()
-            return render_template('tasks.html',tasks=tasks)
-    
-    @staticmethod
-    def create_task():
-           if request.method == 'POST':
-              data = request.form
-              task = Task(id=data['id'],title=data['title'],description=data['description'],status=data['status'],user_id=data['user_id'])
-              db.session.add(task)
-              db.session.commit()          
-              return redirect(url_for('list_tasks'))
-           
-           users = User.query.all()
-           return render_template('create_task.html',users=users)
-    
-    @staticmethod
-    def update_task_status(id):
-                task = Task.query.get(id)
-                if task:
-                        task.status = 'Concluído'                 
-                        db.session.commit()
-                        return redirect(url_for('list_tasks'))
-                
-                tasks = Task.query.all()
-                return render_template('tasks.html',tasks=tasks)
-           
-    @staticmethod
-    def delete_task(id):
-            task = Task.query.get(id)
-            if task:
-                db.session.delete(task)
-                db.session.commit()
-                return redirect(url_for('list_tasks'))
-            return render_template('tasks.html')
-     '''
-          
