@@ -20,7 +20,7 @@ class UserNotFound(Exception):
 
 def get_all_users():
     users = User.query.all()
-    return [us.nome for us in users]
+    return [us.dici() for us in users]
 
 def create_new_user(dados):
     user = User(id=dados['id'],nome=dados['nome'],email=dados['email'])
@@ -38,5 +38,7 @@ def update_user(id,dados):
 
 def delete_user(id):
     user = User.query.get(id)
+    if not user:
+      raise UserNotFound
     db.session.delete(user)
     db.session.commit()
