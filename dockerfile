@@ -2,10 +2,13 @@ FROM python:3.13
 
 WORKDIR /Entrega-Atividade-Full-Stack-main
 
-COPY requirements.txt .
+COPY Entrega-Atividade-Full-Stack-main/ .
 
-RUN 
+COPY requirements.txt /tmp/requirements.txt
+
+RUN pip install --upgrade pip && pip install --no-cache-dir -r /tmp/requirements.txt
+
 
 EXPOSE 5000
 
-CMD ["python","-m","App"]
+CMD ["python","App.py"]
